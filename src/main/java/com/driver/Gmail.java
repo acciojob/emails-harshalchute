@@ -15,6 +15,8 @@ class Mails{
         this.message = message;
     }
 }
+
+
 public class Gmail extends Email {
 
     int inboxCapacity; //maximum number of mails inbox can store
@@ -31,6 +33,8 @@ public class Gmail extends Email {
     int receivedMail;
     TreeMap<Date,Mails> inbox = new TreeMap<>();
     TreeMap<Date,Mails> trash = new TreeMap<>();
+
+    ArrayList<Date> dateAl = new ArrayList<>();
     public void receiveMail(Date date, String sender, String message){
         // If the inbox is full, move the oldest mail in the inbox to trash and add the new mail to inbox.
         // It is guaranteed that:
@@ -40,6 +44,7 @@ public class Gmail extends Email {
             inbox.remove(inbox.firstKey());
         }
         inbox.put(date,new Mails(date,sender,message));
+        dateAl.add(date);
         this.receivedMail+=1;
     }
 
@@ -73,8 +78,8 @@ public class Gmail extends Email {
         //find number of mails in the inbox which are received between given dates
         //It is guaranteed that start date <= end date
         int count = 0;
-        for(Date date : inbox.keySet()){
-            if(date.after(start) && date.before(end)){
+        for(int i = 0; i < dateAl.size(); i++){
+            if(dateAl.get(i).compareTo(start)>=0 && dateAl.get(i).compareTo(end)<=0){
                 count++;
             }
         }
@@ -98,6 +103,6 @@ public class Gmail extends Email {
 
     public int getInboxCapacity() {
         // Return the maximum number of mails that can be stored in the inbox
-        return this.inboxCapacity;
+        return inboxCapacity;
     }
 }
