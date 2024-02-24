@@ -26,7 +26,7 @@ public class Email {
         // 4. It contains at least one digit
         // 5. It contains at least one special character. Any character apart from alphabets and digits is a special character
 
-        if(oldPassword.equals(this.password)){
+        if(oldPassword.equals(this.getPassword())){
             boolean f1=false,f2=false,f3=false,f4=false;
             if(newPassword.length()>=8){
                 for(int i=0;i<newPassword.length();i++){
